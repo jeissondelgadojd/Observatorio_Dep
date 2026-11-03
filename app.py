@@ -50,13 +50,15 @@ st.set_page_config(
 st.markdown("""
 <style>
     .main-header {
-        font-size: 2.1rem;
-        font-weight: 700;
-        color: #1a365d;
-        margin-bottom: 0.2rem;
+        font-size: 2.7rem;
+        font-weight: 800;
+        background: linear-gradient(90deg, #1a365d, #2b6cb0, #c53030);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0.3rem;
     }
     .sub-header {
-        color: #4a5568;
+        color: #718096;
         font-size: 0.95rem;
         margin-bottom: 1.5rem;
     }
