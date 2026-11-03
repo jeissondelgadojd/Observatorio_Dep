@@ -51,19 +51,26 @@ st.set_page_config(
 st.markdown("""
 <style>
     .big-title {
-        font-size: 2.8rem !important;
+        font-size: 2.7rem !important;
         font-weight: 800 !important;
-        color: #e53e3e !important;
-        margin-bottom: 0.2rem !important;
-        line-height: 1.2 !important;
+        background: linear-gradient(90deg, #c53030, #dd6b20, #d69e2e);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0.25rem !important;
+        line-height: 1.25 !important;
+        letter-spacing: -0.5px;
     }
     .sub-title {
         font-size: 1rem !important;
         color: #a0aec0 !important;
-        margin-bottom: 1.5rem !important;
+        margin-bottom: 1.8rem !important;
+        font-weight: 400;
     }
 </style>
 """, unsafe_allow_html=True)
+
+st.markdown('<p class="big-title">Observatorio Socioeconómico Departamental</p>', unsafe_allow_html=True)
+st.markdown('<p class="sub-title">35 indicadores · Periodo 2010-2023 · Versión visual mejorada</p>', unsafe_allow_html=True)
 
 # ============================================================
 # NORMALIZACIÓN Y DATOS
