@@ -49,27 +49,23 @@ st.set_page_config(
 # ============================================================
 st.markdown("""
 <style>
-    .main-header {
-        font-size: 2.7rem;
-        font-weight: 800;
-        background: linear-gradient(90deg, #1a365d, #2b6cb0, #c53030);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 0.3rem;
+    .big-title {
+        font-size: 2.8rem !important;
+        font-weight: 800 !important;
+        color: #e53e3e !important;
+        margin-bottom: 0.2rem !important;
+        line-height: 1.2 !important;
     }
-    .sub-header {
-        color: #718096;
-        font-size: 0.95rem;
-        margin-bottom: 1.5rem;
-    }
-    div[data-testid="stMetric"] {
-        background-color: rgba(248, 250, 252, 0.05);
-        border: 1px solid rgba(226, 232, 240, 0.2);
-        border-radius: 10px;
-        padding: 12px 16px;
+    .sub-title {
+        font-size: 1rem !important;
+        color: #a0aec0 !important;
+        margin-bottom: 1.5rem !important;
     }
 </style>
 """, unsafe_allow_html=True)
+
+st.markdown('<p class="big-title">Observatorio Socioeconómico Departamental</p>', unsafe_allow_html=True)
+st.markdown('<p class="sub-title">35 indicadores · Periodo 2010-2023 · Versión visual mejorada</p>', unsafe_allow_html=True)
 
 # ============================================================
 # NORMALIZACIÓN Y DATOS
