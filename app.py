@@ -186,12 +186,6 @@ with st.sidebar:
     st.caption("Panel sintético calibrado con pesos económicos reales aproximados.")
 
 # ============================================================
-# HEADER
-# ============================================================
-st.markdown('<p class="main-header">Observatorio Socioeconómico Departamental</p>', unsafe_allow_html=True)
-st.markdown(f'<p class="sub-header">{len(INDICADORES)} indicadores · Periodo 2010-2023 · Versión visual mejorada</p>', unsafe_allow_html=True)
-
-# ============================================================
 # TABS
 # ============================================================
 tabs = st.tabs([
