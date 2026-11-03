@@ -64,8 +64,6 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-st.markdown('<p class="big-title">Observatorio Socioeconómico Departamental</p>', unsafe_allow_html=True)
-st.markdown('<p class="sub-title">35 indicadores · Periodo 2010-2023 · Versión visual mejorada</p>', unsafe_allow_html=True)
 
 # ============================================================
 # NORMALIZACIÓN Y DATOS
