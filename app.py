@@ -183,7 +183,6 @@ with st.sidebar:
     deptos = st.multiselect("Departamentos", ["Todos"] + LISTA_DEPTOS, default=["Todos"])
     amin, amax = st.slider("Rango de años", 2010, 2023, (2010, 2023))
     st.markdown("---")
-    st.caption("Panel sintético calibrado con pesos económicos reales aproximados.")
 
 # ============================================================
 # TABS
@@ -431,27 +430,7 @@ with tabs[6]:
             esc_pred = pipe.predict(np.array([[valores[f] for f in feats_s]]))[0]
             delta = esc_pred - base_pred
             st.metric(label=f"Resultado simulado de {target_s}", value=f"{esc_pred:.2f}", delta=f"{delta:+.2f}")
-
-# ==================== TAB 7: FUENTES ====================
-with tabs[7]:
-    st.markdown("### Fuentes, limitaciones y hoja de ruta")
-    st.info("""
-    **Estado actual:** Panel sintético calibrado (35 indicadores) que respeta los pesos económicos relativos reales de los departamentos colombianos y correlaciones empíricas típicas.
-    """)
-    st.markdown("""
-    **¿Por qué todavía es sintético?**  
-    La mayoría de series departamentales de mercado laboral, IPM, pobreza monetaria y competitividad no están publicadas como API limpia en datos.gov.co. Se encuentran principalmente en anexos Excel del DANE.
-
-    **Datos que sí se pueden automatizar hoy:**
-    - PIB departamental (DANE)
-    - Homicidios, lesiones, hurtos (MinDefensa)
-    - Recursos de inversión pública (DNP)
-
-    **Próximo paso recomendado para fortalecer fuentes:**
-    1. Descargar los anexos oficiales del DANE (GEIH departamental, IPM, pobreza monetaria, cuentas departamentales).
-    2. Crear una carpeta `/data` en el repositorio.
-    3. Ampliar el código con cargadores de Excel para reemplazar progresivamente el panel sintético.
-    """)
+            
 
 st.markdown("---")
 st.caption("Observatorio Socioeconómico Departamental · Colombia · Versión corregida · Listo para Streamlit Cloud")
