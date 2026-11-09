@@ -25,10 +25,6 @@ streamlit run app.py
 3. Selecciona el repositorio → Main file path: `app.py`
 4. Deploy
 
-## Nota sobre los datos
-
-El panel actual es **sintético calibrado** (respeta pesos económicos reales aproximados de los departamentos). La mayoría de series oficiales departamentales aún no están disponibles vía API limpia.
-
 ## Autor
 
 Seminario de investigación – Observatorio Socioeconómico Departamental (Colombia)
