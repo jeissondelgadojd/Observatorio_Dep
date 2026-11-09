@@ -209,18 +209,19 @@ with tabs[0]:
         El **Observatorio Socioeconómico Departamental (Colombia)** es una plataforma de analítica avanzada e investigación cuantitativa diseñada para monitorear, diagnosticar y simular la dinámica territorial del país a nivel departamental durante el periodo 2010-2023.
 
         #### 🎯 Objetivos de la Plataforma
-        - **Monitoreo Multidimensional:** Evaluar en tiempo real la evolución de 35 indicadores agrupados en dimensiones económicas, laborales, sociales, de seguridad e infraestructura.
+        - **Monitoreo Multidimensional:** Evaluar la evolución de 35 indicadores agrupados en dimensiones económicas, laborales, sociales, de seguridad e infraestructura.
         - **Análisis Avanzado:** Integrar técnicas econométricas clásicas (series de tiempo VAR) con métodos modernos de reducción de dimensionalidad (PCA) y aprendizaje automático (Ridge, LASSO, Random Forest, SVR, MLP).
         - **Evaluación de Impacto y Prospectiva:** Proporcionar herramientas interactivas de simulación contrafactual para el diseño y análisis de escenarios de política pública territorial.
 
         #### 🧩 Estructura Modular de la Plataforma
-        1. **📊 Resumen Ejecutivo:** Visión panorámica y personalizada de los KPIs principales.
-        2. **🔍 Exploración:** Filtrado, análisis de tendencias por departamento y descarga de series.
-        3. **📈 EDA + PCA:** Matriz de correlaciones inter-indicador y reducción de dimensionalidad.
-        4. **📉 Econometría:** Estimación de modelos Vectores Autorregresivos (VAR) y respuestas al impulso.
-        5. **🗺️ Espacial:** Análisis de rankings territoriales e indicadores de autocorrelación espacial ($I$ de Moran).
-        6. **🤖 Machine Learning:** Modelos predictivos supervisados y comparación de desempeño (RMSE, MAE, $R^2$).
-        7. **🎯 Simulador:** Evaluación contrafactual de impacto ante variaciones en variables de política.
+        1. **🏠 Bienvenida y Contexto:** Introducción al alcance, objetivos e infraestructura analítica.
+        2. **📊 Resumen Ejecutivo:** Visión panorámica y personalizada de los KPIs principales.
+        3. **🔍 Exploración:** Filtrado, análisis de tendencias por departamento y descarga de series.
+        4. **📈 EDA + PCA:** Matriz de correlaciones inter-indicador y reducción de dimensionalidad.
+        5. **📉 Econometría:** Estimación de modelos Vectores Autorregresivos (VAR) y respuestas al impulso.
+        6. **🗺️ Espacial:** Análisis de rankings territoriales e indicadores de autocorrelación espacial ($I$ de Moran con estructura $k$-NN).
+        7. **🤖 Machine Learning:** Modelos predictivos supervisados y comparación de desempeño (RMSE, MAE, $R^2$).
+        8. **🎯 Simulador:** Evaluación contrafactual de impacto ante variaciones en variables de política.
         """)
 
     with col_bienvenida2:
@@ -388,6 +389,15 @@ with tabs[4]:
 # ==================== TAB 5: ESPACIAL ====================
 with tabs[5]:
     st.markdown("### Análisis Espacial y Rankings")
+    
+    st.info("""
+    ℹ️ **Nota Metodológica sobre el Análisis Espacial:**
+    Para garantizar estabilidad operativa y evitar errores de renderizado cartográfico o caídas por límites de memoria en plataformas en la nube, este módulo implementa un enfoque de **Autocorrelación Espacial basado en Proximidad Territorial ($k$-NN)** sobre las observaciones departamentales.
+    
+    - **Visualización:** Representación mediante *Rankings Horizontales Dinámicos* graduados por escala de color de intensidad.
+    - **Econometría Espacial:** Matriz de pesos espaciales estructurada mediante $k$-Nearest Neighbors ($k=5$) sobre la ordenación territorial para la estimación del **Índice $I$ de Moran** y su p-valor simulado.
+    """)
+    
     ind_e = st.selectbox("Indicador", INDICADORES, index=INDICADORES.index("PIB"), key="esp_ind")
     anio_e = st.slider("Año", 2010, 2023, 2022, key="esp_anio")
     d = DF[DF["anio"] == anio_e]
