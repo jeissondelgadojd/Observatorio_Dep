@@ -1,6 +1,6 @@
 # ============================================================
 # OBSERVATORIO SOCIOECONÓMICO DEPARTAMENTAL - COLOMBIA
-# Versión visual mejorada + Resumen Ejecutivo flexible (corregido)
+# Versión visual mejorada + Resumen Ejecutivo flexible
 # ============================================================
 
 import streamlit as st
@@ -188,16 +188,55 @@ with st.sidebar:
 # TABS
 # ============================================================
 tabs = st.tabs([
+    "🏠 Bienvenida y Contexto",
     "📊 Resumen Ejecutivo", 
     "🔍 Exploración", 
     "📈 EDA + PCA", 
     "📉 Econometría", 
     "🗺️ Espacial", 
     "🤖 Machine Learning", 
-    "🎯 Simulador"])
+    "🎯 Simulador"
+])
 
-# ==================== TAB 0: RESUMEN EJECUTIVO (CORREGIDO) ====================
+# ==================== TAB 0: BIENVENIDA Y CONTEXTO ====================
 with tabs[0]:
+    st.markdown("### Bienvenida y Contextualización del Observatorio")
+    
+    col_bienvenida1, col_bienvenida2 = st.columns([2, 1])
+    
+    with col_bienvenida1:
+        st.markdown("""
+        El **Observatorio Socioeconómico Departamental (Colombia)** es una plataforma de analítica avanzada e investigación cuantitativa diseñada para monitorear, diagnosticar y simular la dinámica territorial del país a nivel departamental durante el periodo 2010-2023.
+
+        #### 🎯 Objetivos de la Plataforma
+        - **Monitoreo Multidimensional:** Evaluar en tiempo real la evolución de 35 indicadores agrupados en dimensiones económicas, laborales, sociales, de seguridad e infraestructura.
+        - **Análisis Avanzado:** Integrar técnicas econométricas clásicas (series de tiempo VAR) con métodos modernos de reducción de dimensionalidad (PCA) y aprendizaje automático (Ridge, LASSO, Random Forest, SVR, MLP).
+        - **Evaluación de Impacto y Prospectiva:** Proporcionar herramientas interactivas de simulación contrafactual para el diseño y análisis de escenarios de política pública territorial.
+
+        #### 🧩 Estructura Modular de la Plataforma
+        1. **📊 Resumen Ejecutivo:** Visión panorámica y personalizada de los KPIs principales.
+        2. **🔍 Exploración:** Filtrado, análisis de tendencias por departamento y descarga de series.
+        3. **📈 EDA + PCA:** Matriz de correlaciones inter-indicador y reducción de dimensionalidad.
+        4. **📉 Econometría:** Estimación de modelos Vectores Autorregresivos (VAR) y respuestas al impulso.
+        5. **🗺️ Espacial:** Análisis de rankings territoriales e indicadores de autocorrelación espacial ($I$ de Moran).
+        6. **🤖 Machine Learning:** Modelos predictivos supervisados y comparación de desempeño (RMSE, MAE, $R^2$).
+        7. **🎯 Simulador:** Evaluación contrafactual de impacto ante variaciones en variables de política.
+        """)
+
+    with col_bienvenida2:
+        st.info("""
+        **Ficha Técnica del Sistema**
+        - **Cobertura Territorial:** 32 Departamentos + Bogotá D.C.
+        - **Dimensiones Analíticas:** Mercado Laboral, Macroeconomía, Competitividad, Seguridad, Pobreza, Educación y Servicios.
+        - **Periodo de Análisis:** 2010 – 2023.
+        - **Total Indicadores:** 35 variables departamentales.
+        """)
+        st.metric("Total Departamentos", len(LISTA_DEPTOS))
+        st.metric("Indicadores Multidimensionales", len(INDICADORES))
+        st.metric("Registros Históricos", len(DF))
+
+# ==================== TAB 1: RESUMEN EJECUTIVO (CORREGIDO) ====================
+with tabs[1]:
     st.markdown("### Resumen Ejecutivo configurable")
 
     kpis_sel = st.multiselect(
@@ -276,8 +315,8 @@ with tabs[0]:
                     use_container_width=True
                 )
 
-# ==================== TAB 1: EXPLORACIÓN ====================
-with tabs[1]:
+# ==================== TAB 2: EXPLORACIÓN ====================
+with tabs[2]:
     st.markdown("### Exploración detallada")
     ind = st.selectbox("Indicador", INDICADORES, key="explora_ind")
     d = filtrar(DF, deptos, amin, amax)
@@ -299,8 +338,8 @@ with tabs[1]:
         csv = d[["departamento", "anio", ind]].to_csv(index=False).encode("utf-8")
         st.download_button("⬇️ Descargar datos del indicador", csv, f"{ind}.csv", "text/csv")
 
-# ==================== TAB 2: EDA + PCA ====================
-with tabs[2]:
+# ==================== TAB 3: EDA + PCA ====================
+with tabs[3]:
     st.markdown("### Análisis Exploratorio y Reducción de Dimensionalidad")
     d = filtrar(DF, deptos, amin, amax)
     n_comp = st.slider("Componentes PCA", 2, 8, 4, key="pca_slider")
@@ -327,8 +366,8 @@ with tabs[2]:
             st.metric("Varianza acumulada", f"{np.cumsum(var)[-1]*100:.1f}%")
             st.write("Los primeros componentes suelen capturar el eje desarrollo económico vs. vulnerabilidades sociales.")
 
-# ==================== TAB 3: VAR ====================
-with tabs[3]:
+# ==================== TAB 4: VAR ====================
+with tabs[4]:
     st.markdown("### Econometría de Series de Tiempo (VAR)")
     vars_sel = st.multiselect("Variables para el VAR", INDICADORES,
                               default=["PIB", "Tasa_Desempleo", "IPM", "Homicidios"])
@@ -346,8 +385,8 @@ with tabs[3]:
         else:
             st.warning("No hay suficientes observaciones temporales.")
 
-# ==================== TAB 4: ESPACIAL ====================
-with tabs[4]:
+# ==================== TAB 5: ESPACIAL ====================
+with tabs[5]:
     st.markdown("### Análisis Espacial y Rankings")
     ind_e = st.selectbox("Indicador", INDICADORES, index=INDICADORES.index("PIB"), key="esp_ind")
     anio_e = st.slider("Año", 2010, 2023, 2022, key="esp_anio")
@@ -365,8 +404,8 @@ with tabs[4]:
         mi = Moran(dd[ind_e].values, w)
         st.success(f"**I de Moran = {mi.I:.4f}**  |  p-valor simulado = {mi.p_sim:.4f}")
 
-# ==================== TAB 5: MACHINE LEARNING ====================
-with tabs[5]:
+# ==================== TAB 6: MACHINE LEARNING ====================
+with tabs[6]:
     st.markdown("### Modelos de Machine Learning")
     target = st.selectbox("Variable objetivo", INDICADORES, index=INDICADORES.index("Tasa_Desempleo"))
     features = st.multiselect("Variables explicativas", [c for c in INDICADORES if c != target],
@@ -404,8 +443,8 @@ with tabs[5]:
         fig.update_layout(title=f"{modelo} · Real vs Predicho", height=400)
         st.plotly_chart(fig, use_container_width=True)
 
-# ==================== TAB 6: SIMULADOR ====================
-with tabs[6]:
+# ==================== TAB 7: SIMULADOR ====================
+with tabs[7]:
     st.markdown("### Simulador de Política Pública")
     target_s = st.selectbox("¿Qué quieres impactar?", INDICADORES, index=INDICADORES.index("Tasa_Desempleo"), key="sim_target")
     feats_s = st.multiselect("Variables de política que puedes modificar", INDICADORES,
@@ -428,7 +467,6 @@ with tabs[6]:
             esc_pred = pipe.predict(np.array([[valores[f] for f in feats_s]]))[0]
             delta = esc_pred - base_pred
             st.metric(label=f"Resultado simulado de {target_s}", value=f"{esc_pred:.2f}", delta=f"{delta:+.2f}")
-            
 
 st.markdown("---")
-st.caption("Observatorio Socioeconómico Departamental · Colombia · Versión corregida · Listo para Streamlit Cloud")
+st.caption("Observatorio Socioeconómico Departamental · Colombia")
