@@ -194,9 +194,7 @@ tabs = st.tabs([
     "📉 Econometría", 
     "🗺️ Espacial", 
     "🤖 Machine Learning", 
-    "🎯 Simulador", 
-    "ℹ️ Fuentes"
-])
+    "🎯 Simulador"])
 
 # ==================== TAB 0: RESUMEN EJECUTIVO (CORREGIDO) ====================
 with tabs[0]:
